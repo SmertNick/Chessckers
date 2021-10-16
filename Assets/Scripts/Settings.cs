@@ -4,12 +4,17 @@ using UnityEngine;
 public class Settings : ScriptableObject
 {
     [SerializeField] private Vector2Int boardSize = new Vector2Int(8, 8);
+    [SerializeField] private Vector2 cellSize = new Vector2(1f, 1f);
     
-    [Range(1,4)]
     [SerializeField] private int amountOfPlayers = 2;
 
-    public int BoardWidth => Mathf.Clamp(boardSize.x, 2, 64);
-    public int BoardHeight => Mathf.Clamp(boardSize.y, 2, 64);
+    public Vector2Int BoardSize => boardSize;
+    public int BoardWidth => boardSize.x;
+    public int BoardHeight => boardSize.y;
+
+    public Vector2 CellSize => cellSize;
+    public float CellWidth => cellSize.x;
+    public float CellHeight => cellSize.y;
 
     public int AmountOfPlayers => amountOfPlayers;
 }
