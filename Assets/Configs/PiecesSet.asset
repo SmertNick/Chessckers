@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c186a19bed5d512448e77c3e7f4928be, type: 3}
+  m_Name: PiecesSet
+  m_EditorClassIdentifier: 
+  board: {fileID: 1686292578704742, guid: 39a2cd61c4c1c4144b0758fefde2e154, type: 3}
+  whiteBishop: {fileID: 1877345029257820, guid: 27727deede5194cdba8c2ebab33ecaab, type: 3}
+  blackBishop: {fileID: 1821828046532228, guid: 9fbaf3c5b38c8464f9df18844447db85, type: 3}
+  selectionYellow: {fileID: 1333511979136996, guid: e860aff6f484c47d7b713cbebd3ee5d3, type: 3}
+  selectionBlue: {fileID: 1555274435638532, guid: 4cb3dfa64c6fa4774b49468d68a0845b, type: 3}
+  selectionRed: {fileID: 1341371675672656, guid: c4a2ba9f320f1459996f001bc0387b40, type: 3}
