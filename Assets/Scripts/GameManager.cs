@@ -11,12 +11,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerNames playerNames;
     [SerializeField] private StartingPositions startingPositions;
 
+    public PiecesSet PiecesSet => piecesSet;
     private List<Player> players;
 
     private IBoard board;
     private IBoardView boardView;
-    private IBoardController boardController;
-    private IGeometryHelper geometryHelper;
+    public IBoardController BoardController { get; private set; }
+    public IGeometryHelper GeometryHelper { get; private set; }
 
     void Awake()
     {
@@ -35,10 +36,10 @@ public class GameManager : MonoBehaviour
 
     private void SetUpBoard()
     {
-        geometryHelper = new GeometryHelper(boardSettings);
+        GeometryHelper = new GeometryHelper(boardSettings);
         boardView = Instantiate(piecesSet.Board).GetComponent<IBoardView>();
         board = new Board(boardSettings);
-        boardController = new BoardController(boardSettings, piecesSet, board, boardView, geometryHelper);
+        BoardController = new BoardController(boardSettings, piecesSet, board, boardView, GeometryHelper);
     }
 
     private void SetUpPlayers()
