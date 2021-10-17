@@ -19,9 +19,7 @@ public class GeometryHelper : IGeometryHelper
     
     public Vector3 PositionFromCell(Vector2Int cell)
     {
-        float x = cellWidth * cell.x - .5f * boardWidth + .5f * cellWidth;
-        float z = cellHeight * cell.y - .5f * boardHeight + .5f * cellHeight;
-        return new Vector3(x, 0f, z);
+        return PositionFromCell(cell.x, cell.y);
     }
 
     public Vector3 PositionFromCell(int col, int row)
@@ -33,9 +31,7 @@ public class GeometryHelper : IGeometryHelper
     
     public Vector2Int CellFromPosition(Vector3 position)
     {
-        int col = Mathf.FloorToInt(.5f * boardWidth + position.x / cellWidth);
-        int row = Mathf.FloorToInt(.5f * boardHeight + position.z / cellHeight);
-        return new Vector2Int(col, row);
+        return CellFromPosition(position.x, position.y, position.z);
     }
 
     public Vector2Int CellFromPosition(float x, float y, float z)

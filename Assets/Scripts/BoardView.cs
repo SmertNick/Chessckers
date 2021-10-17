@@ -12,6 +12,9 @@ public class BoardView : MonoBehaviour, IBoardView
 
     private GameObject highlight;
     private GameObject move;
+
+    // TODO Make a proper state machine
+    private bool pieceSelected;
     
     private IGeometryHelper geometryHelper;
 
@@ -20,6 +23,7 @@ public class BoardView : MonoBehaviour, IBoardView
         cam = Camera.main;
         highlight = Instantiate(GameManager.instance.PiecesSet.SelectionYellow);
         geometryHelper = GameManager.instance.GeometryHelper;
+        pieceSelected = false;
     }
 
     void Update()
@@ -35,7 +39,12 @@ public class BoardView : MonoBehaviour, IBoardView
             
             if (Input.GetMouseButtonDown(0))
             {
-                OnPieceSelected?.Invoke(gameObject, hit.point);
+                if (!pieceSelected)
+                    OnPieceSelected?.Invoke(gameObject, hit.point);
+                else
+                {
+                    // TODO movement logic
+                }
             }
         }
         else
@@ -54,11 +63,13 @@ public class BoardView : MonoBehaviour, IBoardView
     {
         piece.transform.position = newPosition;
         OnPieceMoved?.Invoke(piece, newPosition);
+        pieceSelected = false;
     }
 
     public void SelectPiece(GameObject piece)
     {
         MeshRenderer renderers = piece.GetComponentInChildren<MeshRenderer>();
         renderers.material = selectedMaterial;
+        pieceSelected = true;
     }
 }

@@ -6,6 +6,9 @@ public class Board : IBoard
 
     private int[,] pieces;
 
+    private int currentPlayerID;
+    
+
     public Board(BoardSettings boardSettings)
     {
         pieces = new int[boardSettings.BoardWidth, boardSettings.BoardHeight];
@@ -26,6 +29,11 @@ public class Board : IBoard
     public void MovePiece(GameObject piece, int col, int row)
     {
         
+    }
+
+    public bool isCurrentOwner(int col, int row)
+    {
+        return false;
     }
     
 }

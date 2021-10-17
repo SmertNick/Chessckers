@@ -53,7 +53,9 @@ public class BoardController : IBoardController
     public void SelectPiece(GameObject piece, Vector3 position)
     {
         Vector2Int cell = geometryHelper.CellFromPosition(position);
-        boardView.SelectPiece(SelectPieceAtCell(cell));
+        GameObject selectedPiece = SelectPieceAtCell(cell);
+        if (selectedPiece != null)
+            boardView.SelectPiece(selectedPiece);
     }
     
     private GameObject SelectPieceAtCell(int col, int row)
@@ -65,8 +67,6 @@ public class BoardController : IBoardController
     
     private GameObject SelectPieceAtCell(Vector2Int cell)
     {
-        if (cell.x > boardWidth - 1 || cell.x < 0 || cell.y > boardHeight || cell.y < 0)
-            return null;
-        return pieces[cell.x, cell.y];
+        return SelectPieceAtCell(cell.x, cell.y);
     }
 }
