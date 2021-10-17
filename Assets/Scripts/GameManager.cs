@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Vector3Int piece in startingPositions.Positions)
         {
-            board.AddPiece(piece.x - 1, piece.y - 1, piece.z - 1);
+            board.AddPiece(piece.x, piece.y - 1, piece.z - 1);
         }
     }
 }

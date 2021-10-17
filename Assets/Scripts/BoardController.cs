@@ -41,7 +41,7 @@ public class BoardController : IBoardController
     public void AddPiece(int playerID, int col, int row)
     {
         Vector3 position = geometryHelper.PositionFromCell(col, row);
-        pieces[col, row] = boardView.AddPiece(piecesSet[playerID], position);
+        pieces[col, row] = boardView.AddPiece(piecesSet[playerID - 1], position);
     }
 
     public void MovePiece(GameObject piece, Vector3 position)
@@ -55,7 +55,10 @@ public class BoardController : IBoardController
         Vector2Int cell = geometryHelper.CellFromPosition(position);
         GameObject selectedPiece = SelectPieceAtCell(cell);
         if (selectedPiece != null)
-            boardView.SelectPiece(selectedPiece);
+        {
+            if (board.IsCurrentOwner(cell.x, cell.y))
+                boardView.SelectPiece(selectedPiece);
+        }
     }
     
     private GameObject SelectPieceAtCell(int col, int row)

@@ -7,4 +7,5 @@ public interface IBoard
     
     void AddPiece(int playerID, int col, int row);
     void MovePiece(GameObject piece, int col, int row);
+    public bool IsCurrentOwner(int col, int row);
 }
