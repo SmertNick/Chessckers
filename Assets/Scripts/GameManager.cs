@@ -9,10 +9,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PiecesSet piecesSet;
     [SerializeField] private BoardSettings boardSettings;
     [SerializeField] private PlayerNames playerNames;
-
-    private GameObject[,] pieces;
+    [SerializeField] private StartingPositions startingPositions;
 
     private List<Player> players;
+
+    private IBoard board;
+    private IBoardView boardView;
+    private IBoardController boardController;
 
     void Awake()
     {
@@ -24,17 +27,32 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        pieces = new GameObject[boardSettings.BoardWidth, boardSettings.BoardHeight];
-
-        SetUpPlayers(boardSettings.AmountOfPlayers);
+        SetUpBoard();
+        SetUpPlayers();
+        SetUpPieces();
     }
 
-    private void SetUpPlayers(int amountOfPlayers)
+    private void SetUpBoard()
+    {
+        boardView = Instantiate(piecesSet.Board).GetComponent<IBoardView>();
+        board = new Board(boardSettings);
+        boardController = new BoardController(boardSettings, piecesSet, board, boardView);
+    }
+
+    private void SetUpPlayers()
     {
         players = new List<Player>();
-        for (int i = 0; i < amountOfPlayers; i++)
+        for (int i = 0; i < boardSettings.AmountOfPlayers; i++)
         {
             players.Add(new Player(playerNames.GetPlayerName(i)));
+        }
+    }
+
+    private void SetUpPieces()
+    {
+        foreach (Vector3Int piece in startingPositions.Positions)
+        {
+            board.AddPiece(piece.x - 1, piece.y - 1, piece.z - 1);
         }
     }
 }

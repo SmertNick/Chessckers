@@ -6,9 +6,9 @@ public class Board : IBoard
 
     private int[,] pieces;
 
-    public Board(int boardWidth, int boardHeight)
+    public Board(BoardSettings boardSettings)
     {
-        pieces = new int[boardWidth, boardHeight];
+        pieces = new int[boardSettings.BoardWidth, boardSettings.BoardHeight];
     }
 
 

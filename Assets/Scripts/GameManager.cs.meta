@@ -7,6 +7,7 @@ MonoImporter:
   - piecesSet: {fileID: 11400000, guid: 5a9d2efe9462d7146a1ade7e2a7a75fc, type: 2}
   - boardSettings: {fileID: 11400000, guid: 8184df2c014350240ad03fde24fa539a, type: 2}
   - playerNames: {fileID: 11400000, guid: dd7910c3a27b18e47b5ed444b5bca893, type: 2}
+  - startingPositions: {fileID: 11400000, guid: 5e18f23b8b6a5844192fc535afc33bc9, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
