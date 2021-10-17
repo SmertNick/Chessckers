@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,20 +45,29 @@ public class BoardController : IBoardController
         pieces[col, row] = boardView.AddPiece(piecesSet[playerID - 1], position);
     }
 
-    public void MovePiece(GameObject piece, Vector3 position)
+    public void MovePiece(Vector3 position, GameObject piece)
     {
-        Vector2Int cell = geometryHelper.CellFromPosition(position);
-        board.MovePiece(piece, cell.x, cell.y);
+        Vector2Int newCell = geometryHelper.CellFromPosition(position);
+        if (board.IsValidMovement(newCell))
+        {
+            board.MovePiece(geometryHelper.CellFromPosition(piece.transform.position), newCell);
+            boardView.MovePiece(piece, geometryHelper.PositionFromCell(newCell));
+        }
     }
 
-    public void SelectPiece(GameObject piece, Vector3 position)
+    public void SelectPiece(Vector3 position, GameObject piece)
     {
         Vector2Int cell = geometryHelper.CellFromPosition(position);
-        GameObject selectedPiece = SelectPieceAtCell(cell);
-        if (selectedPiece != null)
+        if (board.IsCurrentOwner(cell.x, cell.y))
         {
-            if (board.IsCurrentOwner(cell.x, cell.y))
+            GameObject selectedPiece = SelectPieceAtCell(cell);
+            if (selectedPiece != null)
+            {
                 boardView.SelectPiece(selectedPiece);
+                
+                List<Vector2Int> movementCells = board.AllowedMovementPositions(cell.x, cell.y);
+                boardView.ShowMovementPositions(movementCells);
+            }
         }
     }
     

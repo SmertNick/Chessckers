@@ -156,6 +156,10 @@ MonoBehaviour:
   boardSettings: {fileID: 11400000, guid: 8184df2c014350240ad03fde24fa539a, type: 2}
   playerNames: {fileID: 11400000, guid: dd7910c3a27b18e47b5ed444b5bca893, type: 2}
   startingPositions: {fileID: 11400000, guid: 5e18f23b8b6a5844192fc535afc33bc9, type: 2}
+  movementSettingsList:
+  - {fileID: 11400000, guid: 943a410fe520d2c4094c87962b2e5df0, type: 2}
+  - {fileID: 11400000, guid: 198415e903bcd0a44ae09bca8c2c3e88, type: 2}
+  - {fileID: 11400000, guid: ce67dd0116c016448a2cfec8e69fe849, type: 2}
 --- !u!4 &443461871
 Transform:
   m_ObjectHideFlags: 0

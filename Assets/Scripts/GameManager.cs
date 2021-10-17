@@ -10,13 +10,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BoardSettings boardSettings;
     [SerializeField] private PlayerNames playerNames;
     [SerializeField] private StartingPositions startingPositions;
+    [SerializeField] private List<MovementSettings> movementSettingsList;
 
     public PiecesSet PiecesSet => piecesSet;
     private List<Player> players;
 
     private IBoard board;
     private IBoardView boardView;
-    public IBoardController BoardController { get; private set; }
+    private IBoardController boardController;
     public IGeometryHelper GeometryHelper { get; private set; }
 
     void Awake()
@@ -38,8 +39,18 @@ public class GameManager : MonoBehaviour
     {
         GeometryHelper = new GeometryHelper(boardSettings);
         boardView = Instantiate(piecesSet.Board).GetComponent<IBoardView>();
-        board = new Board(boardSettings);
-        BoardController = new BoardController(boardSettings, piecesSet, board, boardView, GeometryHelper);
+        board = new Board(boardSettings, movementSettingsList[0]); // TODO read int from user input in UI
+        boardController = new BoardController(boardSettings, piecesSet, board, boardView, GeometryHelper);
+
+        Vector3[,] positions = new Vector3[boardSettings.BoardWidth, boardSettings.BoardHeight];
+        for (int col = 0; col < boardSettings.BoardWidth; col++)
+        {
+            for (int row = 0; row < boardSettings.BoardHeight; row++)
+            {
+                positions[col, row] = GeometryHelper.PositionFromCell(col, row);
+            }
+        }
+        boardView.SetupMovementPositions(positions);
     }
 
     private void SetUpPlayers()

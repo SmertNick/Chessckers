@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardView : MonoBehaviour, IBoardView
@@ -11,7 +12,9 @@ public class BoardView : MonoBehaviour, IBoardView
     private Camera cam;
 
     private GameObject highlight;
-    private GameObject move;
+    private GameObject[,] movements;
+
+    private GameObject selectedPiece;
 
     // TODO Make a proper state machine
     private bool pieceSelected;
@@ -40,10 +43,11 @@ public class BoardView : MonoBehaviour, IBoardView
             if (Input.GetMouseButtonDown(0))
             {
                 if (!pieceSelected)
-                    OnPieceSelected?.Invoke(gameObject, hit.point);
+                    OnPieceSelected?.Invoke(hit.point, selectedPiece);
                 else
                 {
                     // TODO movement logic
+                    OnPieceMoved?.Invoke (hit.point, selectedPiece);
                 }
             }
         }
@@ -54,6 +58,20 @@ public class BoardView : MonoBehaviour, IBoardView
         
     }
 
+    public void SetupMovementPositions(Vector3[,] positions)
+    {
+        movements = new GameObject[positions.GetLength(0), positions.GetLength(1)];
+        for (int col = 0; col < positions.GetLength(0); col++)
+        {
+            for (int row = 0; row < positions.GetLength(1); row++)
+            {
+                movements[col, row] = Instantiate(GameManager.instance.PiecesSet.SelectionBlue,
+                    positions[col, row], Quaternion.identity, gameObject.transform);
+                movements[col, row].SetActive(false);
+            }
+        }
+    }
+
     public GameObject AddPiece(GameObject piece, Vector3 position)
     {
         return Instantiate(piece, position, Quaternion.identity, gameObject.transform);
@@ -62,14 +80,43 @@ public class BoardView : MonoBehaviour, IBoardView
     public void MovePiece(GameObject piece, Vector3 newPosition)
     {
         piece.transform.position = newPosition;
-        OnPieceMoved?.Invoke(piece, newPosition);
-        pieceSelected = false;
+        
+        DeselectPiece(piece);
+        ClearMovementTiles();
+    }
+
+    private void ClearMovementTiles()
+    {
+        for (int col = 0; col < movements.GetLength(0); col++)
+        {
+            for (int row = 0; row < movements.GetLength(1); row++)
+            {
+                movements[col, row].SetActive(false);
+            }
+        }
     }
 
     public void SelectPiece(GameObject piece)
     {
         MeshRenderer renderers = piece.GetComponentInChildren<MeshRenderer>();
         renderers.material = selectedMaterial;
+        selectedPiece = piece;
         pieceSelected = true;
+    }
+
+    private void DeselectPiece(GameObject piece)
+    {
+        MeshRenderer renderers = piece.GetComponentInChildren<MeshRenderer>();
+        renderers.material = defaultMaterial;
+        selectedPiece = null;
+        pieceSelected = false;
+    }
+
+    public void ShowMovementPositions(List<Vector2Int> movementPositions)
+    {
+        foreach (Vector2Int position in movementPositions)
+        {
+            movements[position.x, position.y].SetActive(true);
+        }
     }
 }
