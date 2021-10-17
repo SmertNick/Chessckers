@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Chessckers/GameSettings", fileName = "GameSettings")]
-public class Settings : ScriptableObject
+public class BoardSettings : ScriptableObject
 {
     [SerializeField] private Vector2Int boardSize = new Vector2Int(8, 8);
     [SerializeField] private Vector2 cellSize = new Vector2(1f, 1f);

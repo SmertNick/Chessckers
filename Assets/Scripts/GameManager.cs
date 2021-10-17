@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
   
     [SerializeField] private PiecesSet piecesSet;
-    [SerializeField] private Settings settings;
+    [SerializeField] private BoardSettings boardSettings;
     [SerializeField] private PlayerNames playerNames;
 
     private GameObject[,] pieces;
@@ -23,9 +24,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        pieces = new GameObject[settings.BoardWidth, settings.BoardHeight];
+        pieces = new GameObject[boardSettings.BoardWidth, boardSettings.BoardHeight];
 
-        SetUpPlayers(settings.AmountOfPlayers);
+        SetUpPlayers(boardSettings.AmountOfPlayers);
     }
 
     private void SetUpPlayers(int amountOfPlayers)
