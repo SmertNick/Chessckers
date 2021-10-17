@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Chessckers/PiecesSet", fileName = "PiecesSet")]
@@ -7,8 +8,7 @@ public class PiecesSet : ScriptableObject
     [SerializeField] private GameObject board;
 
     [Header("Chess Piecess")]
-    [SerializeField] private GameObject whiteBishop;
-    [SerializeField] private GameObject blackBishop;
+    [SerializeField] private List<GameObject> pieces;
     
     [Header("Selection prefabs")]
     [SerializeField] private GameObject selectionYellow;
@@ -17,8 +17,7 @@ public class PiecesSet : ScriptableObject
 
     public GameObject Board => board;
 
-    public GameObject WhiteBishop => whiteBishop;
-    public GameObject BlackBishop => blackBishop;
+    public List<GameObject> Pieces => pieces;
 
     public GameObject SelectionYellow => selectionYellow;
     public GameObject SelectionBlue => selectionBlue;
