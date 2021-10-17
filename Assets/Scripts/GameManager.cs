@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private IBoard board;
     private IBoardView boardView;
     private IBoardController boardController;
+    private IGeometryHelper geometryHelper;
 
     void Awake()
     {
@@ -34,9 +35,10 @@ public class GameManager : MonoBehaviour
 
     private void SetUpBoard()
     {
+        geometryHelper = new GeometryHelper(boardSettings);
         boardView = Instantiate(piecesSet.Board).GetComponent<IBoardView>();
         board = new Board(boardSettings);
-        boardController = new BoardController(boardSettings, piecesSet, board, boardView);
+        boardController = new BoardController(boardSettings, piecesSet, board, boardView, geometryHelper);
     }
 
     private void SetUpPlayers()
